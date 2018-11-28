@@ -1,0 +1,118 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var word = ["e","l","e","p","h","a","n","t"]
+        var wrongCount = 0;
+        var tallies = "";
+        var rightCount = 0;
+        $("#submit").click(function(){
+            //$("#test1").text("check");
+            var value=$('#text').val();
+            
+            if(value.length==1){
+                //$("#test2").text("success");
+                var count = 0;
+                for(var i = 0; i < 8; i++){
+                    if(value==word[i]){
+                        count++;
+                        word[i]="_";
+                        rightCount++;
+                        $("#letter"+(i+1)).text(value);
+                        if(rightCount==8){
+                            document.getElementById('winMessage').style.display = "block";
+                        }
+                    }
+                }
+                if(count==0){
+                        tallies+="|";
+                        $("#tallies").text(tallies);
+                        wrongCount++;
+                        if(wrongCount==10){
+                            document.getElementById('loseMessage').style.display = "block";
+                            
+                        }
+                }
+            }
+        $("#text").val("");
+        });
+    });
+
+</script>
+<style>
+    #letters{
+        text-align: left;
+
+    }
+    .blanks{
+        display: inline-block;
+        
+    }
+    .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+</style>
+
+<input type="text" id="text" placeholder="Type your letter here"/>
+<button id="submit">Submit Guess</button>
+<ul id="letters">
+    <li id="letter1" class="blanks">__</li>
+    <li id="letter2"class="blanks">__</li>
+    <li id="letter3" class="blanks">__</li>
+    <li id="letter4"class="blanks">__</li>
+    <li id="letter5" class="blanks">__</li>
+    <li id="letter6"class="blanks">__</li>
+    <li id="letter7" class="blanks">__</li>
+    <li id="letter8"class="blanks">__</li>
+</ul>
+<p>Incorrect guesses:</p>
+<p id="tallies"></p>
+<dialog closed id="loseMessage">You lose!</dialog>
+    <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>You Lose!</p>
+    </div>
+  </div>
+  <dialog closed id="winMessage">You win!</dialog>
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>You Win!</p>
+        </div>
+  </div>
